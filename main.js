@@ -28,8 +28,9 @@ function onSubmit(e){
             mobile
         };
 
+        //Sending a POST Request to CRUD API
         axios
-          .post("https://crudcrud.com/api/57b22c2ac83948a4bed6a764ccea9e39/appointmentData" , user)
+          .post("https://crudcrud.com/api/7e2375639d7445d492404b3e4176dc41/appointmentData" , user)
           .then((res) => {
             showUserOnScreen(res.data)
             console.log(res);
@@ -41,9 +42,10 @@ function onSubmit(e){
     }
 }
 
+//Sending a GET Request to CRUD API
 window.addEventListener("DOMContentLoaded" , () => {
     axios
-      .get("https://crudcrud.com/api/57b22c2ac83948a4bed6a764ccea9e39/appointmentData")
+      .get("https://crudcrud.com/api/7e2375639d7445d492404b3e4176dc41/appointmentData")
       .then((res) => {
         console.log(res)
         for(var i=0;i<res.data.length;i++){
@@ -62,7 +64,13 @@ function showUserOnScreen(user){
     deleteBtn.value = "Delete";
     deleteBtn.style.backgroundColor = 'lightPink';
     deleteBtn.onclick = () => {
-        userList.removeChild(li);
+        //Sending a DELETE Request to CRUD API
+        axios
+          .delete(`https://crudcrud.com/api/7e2375639d7445d492404b3e4176dc41/appointmentData/${user._id}`)
+          .then((res) => {
+            userList.removeChild(li);
+          })
+          .catch((error) => console.log(error));
     }
 
     let editBtn = document.createElement('input');
