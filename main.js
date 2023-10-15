@@ -37,13 +37,25 @@ function onSubmit(e){
           .catch((error) => {
             document.body.innerHTML = document.body.innerHTML + "<h4>Something went wrong</h4>"
             console.log(error);
-          })
+          }) 
     }
 }
 
+window.addEventListener("DOMContentLoaded" , () => {
+    axios
+      .get("https://crudcrud.com/api/57b22c2ac83948a4bed6a764ccea9e39/appointmentData")
+      .then((res) => {
+        console.log(res)
+        for(var i=0;i<res.data.length;i++){
+            showUserOnScreen(res.data[i]);
+        }
+      })
+      .catch((error) => console.log(error))
+  })
+
 function showUserOnScreen(user){
     let li = document.createElement('li');
-    let details = document.createTextNode(`${nameInput.value} : ${emailInput.value} : ${mobileInput.value}`);
+    let details = document.createTextNode(`${user.name} : ${user.email} : ${user.mobile}`);
 
     let deleteBtn = document.createElement('input');
     deleteBtn.type = 'button';
